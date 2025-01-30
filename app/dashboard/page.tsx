@@ -1,11 +1,13 @@
-import { DashboardShell } from "@/components/dashboard/DashboardShell"
-
-export default function DashboardPage() {
-  return (
-    <DashboardShell>
-      <h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
-      <p>Select an option from the sidebar to get started.</p>
-    </DashboardShell>
-  )
-}
-
+export default function Dashboard() {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient">
+        <h1 className="text-5xl font-extrabold mb-6 text-white relative animate-text-glow">
+          Welcome to the <span className="text-yellow-400">Dashboard</span>
+        </h1>
+        <p className="text-lg text-gray-200 animate-slide-in">
+          Select an option from the sidebar to get started.
+        </p>
+      </div>
+    );
+  }
+  

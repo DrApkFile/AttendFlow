@@ -1,12 +1,12 @@
-import { Toaster } from "@/components/ui/toaster"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import type React from "react" // Import React
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Attendance Dashboard",
-  description: "Manage your class attendance with ease",
+  title: "Course Rep Attendance System",
+  description: "Manage class attendance efficiently",
 }
 
 export default function RootLayout({
@@ -16,10 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
-        <Toaster />
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }

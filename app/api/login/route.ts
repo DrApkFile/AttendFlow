@@ -1,25 +1,27 @@
 import { NextResponse } from "next/server"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import clientPromise from "@/lib/mongodb"
+import type { User } from "@/models/User"
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const { username, email, password } = await request.json()
+    const { username, password } = await req.json()
+    const client = await clientPromise
+    const db = client.db("courseRepAttendance")
 
-    const apiResponse = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password }),
-    })
+    const user = await db.collection<User>("users").findOne({ username })
 
-    if (apiResponse.ok) {
-      const data = await apiResponse.json()
-      return NextResponse.json(data)
-    } else {
-      const errorData = await apiResponse.json()
-      return NextResponse.json({ message: errorData.message || "Login failed" }, { status: 401 })
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
     }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, { expiresIn: "1h" })
+
+    return NextResponse.json({ token })
   } catch (error) {
-    console.error("Login error:", error)
-    return NextResponse.json({ message: "An unexpected error occurred" }, { status: 500 })
+    console.error("Error during login:", error)
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
   }
 }
 

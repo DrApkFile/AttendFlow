@@ -42,6 +42,7 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -84,5 +85,47 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* 🎆 CRAZY ANIMATIONS 🎆 */
+@layer utilities {
+  @keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes text-glow {
+    0%, 100% { text-shadow: 0 0 10px #fff, 0 0 20px #ff0, 0 0 30px #ff0; }
+    50% { text-shadow: 0 0 20px #ff0, 0 0 40px #ff0, 0 0 60px #ff0; }
+  }
+
+  @keyframes slide-in {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse-button {
+    0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+    100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-animation 6s infinite alternate ease-in-out;
+  }
+
+  .animate-text-glow {
+    animation: text-glow 1.5s infinite alternate ease-in-out;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 1s ease-in-out forwards;
+  }
+
+  .animate-pulse-button {
+    animation: pulse-button 1.5s infinite alternate ease-in-out;
   }
 }
